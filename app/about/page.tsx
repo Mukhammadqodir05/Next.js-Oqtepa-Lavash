@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 const About = () => {
   return (
-    <div className='flex flex-col w-full p-0 h-full bg-black'>
+    <div className="flex flex-col w-full p-0 h-full bg-black">
       <Navbar />
       <div className="w-full h-full text-white pt-[50px] flex flex-col justify-center items-center overflow-y-auto">
         <div className="md:w-3/2 flex flex-col items-center justify-center p-2 mt-[100px]">
@@ -14,7 +14,7 @@ const About = () => {
               src={aboutImage}
               alt="About Oqtepa Lavash company" 
               className="rounded-lg shadow-lg"
-              style={{ maxWidth: '100%', height: 'auto' }}
+              style={{ maxWidth: "100%", height: "auto" }}
           />
         </div>
         <div className="md:w-[80%] mt-8 md:mt-0 md:ml-8 p-2">
