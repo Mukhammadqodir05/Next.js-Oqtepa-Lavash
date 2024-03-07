@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './pages/navbar';
 import Menu from './pages/menu';
+import Footer from './pages/footer';
 
 const Home = () => {
   return (
@@ -8,7 +9,13 @@ const Home = () => {
       <Navbar />
        <div className='w-full h-full bg-black text-white pt-[80px]'>
          <Menu />
+         <Menu />
+
+         <div className='mt-10 w-full'>
+         <Footer />
+        </div>
        </div>
+
     </div>
   );
 };

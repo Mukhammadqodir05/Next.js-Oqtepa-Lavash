@@ -1,35 +1,52 @@
+
 import React from 'react';
 import aboutImage from '/public/About/aboutImage.jpg';
 import Navbar from '../pages/navbar';
 import Footer from '../pages/footer';
 import Image from 'next/image';
+import { FaMapMarkerAlt } from 'react-icons/fa';
+import { FaPhone } from 'react-icons/fa6';
 
 const About = () => {
   return (
-    <div className="flex flex-col w-full p-0 h-full bg-black">
+    <div className="flex flex-col w-full min-h-screen bg-black text-white">
       <Navbar />
-      <div className="w-full h-full text-white pt-[50px] flex flex-col justify-center items-center overflow-y-auto">
-        <div className="md:w-3/2 flex flex-col items-center justify-center p-2 mt-[100px]">
+      <div className="w-full flex flex-col items-center justify-center h-full pt-16 overflow-y-auto">
+        <div className="w-full max-w-[1000px] flex flex-col items-center justify-center mt-12 p-2">
           <Image
-              src={aboutImage}
-              alt="About Oqtepa Lavash company" 
-              className="rounded-lg shadow-lg"
-              style={{ maxWidth: "100%", height: "auto" }}
+            src={aboutImage}
+            alt="About Oqtepa Lavash company"
+            className="rounded-lg shadow-lg"
           />
         </div>
-        <div className="md:w-[80%] mt-8 md:mt-0 md:ml-8 p-2">
-          <h1 className="text-3xl font-bold gradient-text mb-4">Welcome to Oqtepa Lavash</h1>
+        <div className="w-full max-w-[1000px] mt-8 p-2">
+          <h1 className="text-3xl font-bold text-white mb-4">Welcome to Oqtepa Lavash</h1>
           <p className="text-lg text-gray-300 leading-relaxed">
-            Oqtepa Lavash is a renowned fast food company that specializes in serving delicious and authentic fast foods. Our mission is to provide our customers with high-quality, freshly made fast foods that are packed with flavor and satisfaction.
+            Oqtepa Lavash is a well-known fast food establishment specializing in serving delicious and authentic fast foods. Our goal is to offer customers top-quality, freshly prepared fast food bursting with flavor and satisfaction.
           </p>
           <p className="text-lg text-gray-300 leading-relaxed mt-4">
-            With a focus on using premium ingredients and traditional recipes, we ensure that every bite of our food is a delightful experience. Whether you're looking for a quick meal on the go or a fulfilling snack, Oqtepa Lavash has got you covered.
+            Oqtepa Lavash, a chain of fast food cafes, thrives in Uzbekistan's rapidly expanding market by catering to the demand for accessible fast food options. Our dedication to food excellence is evident—from introducing more balanced pita bread options to preparing fresh cheeseburgers upon order. We continuously demonstrate our commitment to both our customers and our culinary creations.
+            Our journey commenced over 12 years ago when two brothers embarked on realizing their longstanding aspiration: to excel in the realm of catering, particularly in the art of Lavash preparation. In 2010, the inaugural Oqtepa Lavash branch came to life. Today, over 55 fast food cafes dot the landscape of Uzbekistan, providing employment opportunities for more than 1,500 individuals.
           </p>
         </div>
+
+        <div className="flex flex-col w-full max-w-[1000px] justify-center ml-5">
+          <div className="flex items-center">
+            <FaMapMarkerAlt size={24} className="mr-2" />
+            <p className="text-md text-gray-400 mt-3">Tashkent, Almazar district, Karasaray Street, 2a.</p>
+          </div>
+          <div className="flex items-center">
+            <FaPhone size={24} className=" text-[#f00] mr-2" />
+            <p className="text-md text-gray-400 mt-3">+998 78 150 00 30</p>
+          </div>
+        </div>
+        <div className="w-full mt-10">
+          <Footer />
+        </div>
       </div>
-      <Footer />
     </div>
   );
 };
 
 export default About;
+

@@ -8,7 +8,7 @@ const Menu = () => {
     <main className='flex w-full h-full flex-col items-center justify-center '>
       <div className='xs:grid flex flex-col justify-center items-center w-full grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4 p-4'>
         { Newitems.map((item) => (
-          <div key={item.id} className='card rounded-3xl w-full max-w-[400px]'>
+          <div key={item.id} className='card rounded-3xl w-full max-w-[400px] h-full max-h-[400px]'>
             <Image className='w-full rounded-lg' src={item.image} alt={item.title} />
             <div className='pt-2'>
               <div>

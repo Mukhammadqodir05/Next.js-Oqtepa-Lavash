@@ -14,15 +14,15 @@ const Navbar = () => {
 
   return (
     <nav className="flex w-full navbar p-0 items-center justify-between border-b borderColor text-white fixed-top h-[80px]">
-      <div className='ml-5 md:ml-10'>
+      <div className='ml-5 md:ml-10 cursor-pointer'>
         <Logo />
       </div>
       <div className="hidden md:flex md:items-center md:gap-6 mr-10">
-      <Link href="/" className="text-white no-underline text-xl font-semibold">Home</Link>
-            <Link href="/branches" className="text-white no-underline text-xl font-semibold">Branches</Link>
-            <Link href="/about" className="text-white no-underline text-xl font-semibold">About</Link>
-            <Link href="/contact" className="text-white no-underline text-xl font-semibold">Contact</Link>
-        <button className=' text-[#4f69ff]'><VscAccount size={40} /></button>
+          <Link href="/" className="text-white no-underline text-xl font-semibold">Home</Link>
+          <Link href="/branches" className="text-white no-underline text-xl font-semibold">Branches</Link>
+          <Link href="/about" className="text-white no-underline text-xl font-semibold">About</Link>
+          <Link href="/contact" className="text-white no-underline text-xl font-semibold">Contact</Link>
+          <button className=' text-[#4f69ff]'><VscAccount size={40} /></button>
       </div>
 
       <div className="flex items-center md:hidden mr-3">
@@ -41,7 +41,7 @@ const Navbar = () => {
               <MdClose title='close' onClick={handleNavbar} size={30}/>
             </div>
           </div>
-          <ul className="flex flex-col justify-start gap-6 mt-6">
+          <div className="flex ml-5 flex-col gap-6 mt-6">
             <Link href="/" className="text-white cursor-pointer no-underline text-xl font-semibold">Home</Link>
             <Link href="/branches" className="text-white cursor-pointer no-underline text-xl font-semibold">Branches</Link>
             <Link href="/about" className="text-white cursor-pointer no-underline text-xl font-semibold">About</Link>
@@ -50,7 +50,7 @@ const Navbar = () => {
               <h4 className='text-xl cursor-pointer'>Sign up</h4>
               <button className='text-[#4f69ff] cursor-pointer'><VscAccount size={30} /></button>
             </div>
-          </ul>
+          </div>
         </div>
       )}
 
