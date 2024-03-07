@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaCartPlus } from 'react-icons/fa';
 import Newitems from '../utilities/data';
+import Image from 'next/image';
 
 const Menu = () => {
   return (
@@ -8,7 +9,7 @@ const Menu = () => {
       <div className='xs:grid flex flex-col justify-center items-center w-full grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4 p-4'>
         { Newitems.map((item) => (
           <div key={item.id} className='card rounded-3xl w-full max-w-[400px]'>
-            <img className='w-full rounded-lg' src={item.image.src} alt={item.title} />
+            <Image className='w-full rounded-lg' src={item.image} alt={item.title} />
             <div className='pt-2'>
               <div>
                 <h3 className='text-xl font-bold text-white'>{item.title}</h3>

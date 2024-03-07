@@ -2,6 +2,7 @@ import React from 'react';
 import aboutImage from '/public/About/aboutImage.jpg';
 import Navbar from '../pages/navbar';
 import Footer from '../pages/footer';
+import Image from 'next/image';
 
 const About = () => {
   return (
@@ -9,7 +10,12 @@ const About = () => {
       <Navbar />
       <div className="w-full h-full text-white pt-[50px] flex flex-col justify-center items-center overflow-y-auto">
         <div className="md:w-3/2 flex flex-col items-center justify-center p-2 mt-[100px]">
-          <img src={aboutImage.src}  className="rounded-lg shadow-lg" style={{ maxWidth: '100%', height: 'auto' }} />
+          <Image
+              src={aboutImage}
+              alt="About Oqtepa Lavash company" 
+              className="rounded-lg shadow-lg"
+              style={{ maxWidth: '100%', height: 'auto' }}
+          />
         </div>
         <div className="md:w-[80%] mt-8 md:mt-0 md:ml-8 p-2">
           <h1 className="text-3xl font-bold gradient-text mb-4">Welcome to Oqtepa Lavash</h1>
