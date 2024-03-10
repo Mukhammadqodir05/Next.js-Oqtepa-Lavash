@@ -1,7 +1,7 @@
 import React from 'react';
 import branchData from '../utilities/branches';
-import Footer from '../pages/footer';
-import Navbar from '../pages/navbar';
+import Footer from '../componets/footer';
+import Navbar from '../componets/navbar';
 
 const Branches = () => {
   return (

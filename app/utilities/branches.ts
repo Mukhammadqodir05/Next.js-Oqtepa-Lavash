@@ -1,5 +1,3 @@
-
-
 const branchData = [
       {
          id: 1,

@@ -1,23 +1,21 @@
 import React from 'react';
-import Navbar from './pages/navbar';
-import Menu from './pages/menu';
-import Footer from './pages/footer';
+import Navbar from './componets/navbar';
+import Menu from './componets/menu';
+import Footer from './componets/footer';
 
 const Home = () => {
   return (
-    <div className='flex w-full p-0 h-full overflow-hidden'>
+    <div className=' flex flex-col w-full p-0 h-full overflow-hidden bg-black'>
       <Navbar />
-       <div className='w-full h-full bg-black text-white pt-[80px]'>
-         <Menu />
-         <Menu />
-
-         <div className='mt-10 w-full'>
-         <Footer />
+      <div className='w-full h-full text-white pt-[80px] overflow-hidden'>
+        <Menu />
+        <div className='w-full hidden md:flex'>
+          <Footer />
         </div>
-       </div>
-
+      </div>
     </div>
   );
 };
 
 export default Home;
+

@@ -1,6 +1,6 @@
 import React from 'react';
-import Navbar from '../pages/navbar';
-import Footer from '../pages/footer';
+import Navbar from '../componets/navbar';
+import Footer from '../componets/footer';
 import { FaPhone, FaTelegram } from 'react-icons/fa';
 import Image from 'next/image';
 import oqtepalavashcontact from '/public/oqtepalavashcontact.jpg';

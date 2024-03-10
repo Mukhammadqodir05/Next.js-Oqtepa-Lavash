@@ -1,8 +1,7 @@
-
 import React from 'react';
 import aboutImage from '/public/About/aboutImage.jpg';
-import Navbar from '../pages/navbar';
-import Footer from '../pages/footer';
+import Navbar from '../componets/navbar';
+import Footer from '../componets/footer';
 import Image from 'next/image';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { FaPhone } from 'react-icons/fa6';
