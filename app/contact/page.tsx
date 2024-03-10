@@ -17,6 +17,7 @@ const Contact = () => {
             src={oqtepalavashcontact}
             alt="About Oqtepa Lavash company"
             className='rounded-lg border'
+            placeholder='blur'
           />
         </div>
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2 mt-12 md:mt-20">

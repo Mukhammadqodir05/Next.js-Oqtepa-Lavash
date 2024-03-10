@@ -16,6 +16,7 @@ const About = () => {
             src={aboutImage}
             alt="About Oqtepa Lavash company"
             className="rounded-lg shadow-lg"
+            placeholder='blur'
           />
         </div>
         <div className="w-full max-w-[1000px] mt-8 p-2">

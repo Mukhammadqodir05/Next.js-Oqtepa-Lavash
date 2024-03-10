@@ -63,19 +63,41 @@ const MenuBar = () => {
   return (
     <main className='flex w-full h-full flex-col items-center justify-center'>
       {/* Top Bar */}
-       <div className="flex md:hidden items-center justify-center w-full fixed bottom-[-5px] left-0 h-[60px] bg-black">
-          <ul className="flex justify-center items-center gap-5 h-[60px]">
-            <li onClick={() => handleSelectCategory('New items')}>New items</li>
-            <li onClick={() => handleSelectCategory('Nuggets')}>Nuggets</li>
-            <li onClick={() => handleSelectCategory('Hits')}>Hits</li>
-            <li onClick={() => handleSelectCategory('Lavash')}>Lavash</li>
-            <li onClick={() => handleSelectCategory('Doners')}>Doners</li>
-            <li onClick={() => handleSelectCategory('Burgers')}>Burgers</li>
-            <li onClick={() => handleSelectCategory('Snacks')}>Snacks</li>
-            <li onClick={() => handleSelectCategory('Hot drinks')}>Hot drinks</li>
-            <li onClick={() => handleSelectCategory('Sauces')}>Sauces</li>
-            <li onClick={() => handleSelectCategory('Salads')}>Salads</li>
-            <li onClick={() => handleSelectCategory('Cold drinks')}>Cold drinks</li>
+       <div className="flex md:hidden items-center justify-center w-full fixed bottom-[-7px] left-0 h-[60px] bg-black">
+          <ul className="flex border-t justify-center items-center gap-5 h-[60px] shadow-lg bg-gradient-to-br from-purple-800 to-indigo-500 text-white">
+              <li className='flex justify-center items-center' onClick={() => handleSelectCategory('New items')}>
+                <span className={clickedBar === 'New items' ? 'selected' : 'list'}>New items</span>
+              </li>
+              <li className='flex justify-center items-center' onClick={() => handleSelectCategory('Nuggets')} >
+                  <span className={clickedBar === 'Nuggets' ? 'selected' : 'list'}>Nuggets</span>
+              </li>
+              <li className='flex justify-center items-center' onClick={() => handleSelectCategory('Hits')}>
+                <span className={clickedBar === 'Hits' ? 'selected' : 'list'}>Hits</span>
+              </li>
+              <li className='flex justify-center items-center' onClick={() => handleSelectCategory('Lavash')}>
+                <span className={clickedBar === 'Lavash' ? 'selected' : 'list'}>Lavash</span>
+              </li>
+              <li className='flex justify-center items-center' onClick={() => handleSelectCategory('Doners')}>
+                <span className={clickedBar === 'Doners' ? 'selected' : 'list'}>Doners</span>
+              </li>
+              <li className='flex justify-center items-center' onClick={() => handleSelectCategory('Burgers')}>
+                <span className={clickedBar === 'Burgers' ? 'selected' : 'list'}>Burgers</span>
+              </li>
+              <li className='flex justify-center items-center' onClick={() => handleSelectCategory('Snacks')}>
+                <span className={clickedBar === 'Snacks' ? 'selected' : 'list'}>Snacks</span>
+              </li>
+              <li className='flex justify-center items-center' onClick={() => handleSelectCategory('Hot drinks')}>
+                <span className={clickedBar === 'Hot drinks' ? 'selected' : 'list'}>Hot drinks</span>
+              </li>
+              <li className='flex justify-center items-center' onClick={() => handleSelectCategory('Sauces')}>
+                <span className={clickedBar === 'Sauces' ? 'selected' : 'list'}>Sauces</span> 
+              </li>
+              <li className='flex justify-center items-center' onClick={() => handleSelectCategory('Salads')}>
+                <span className={clickedBar === 'Salads' ? 'selected' : 'list'}>Salads</span> 
+              </li>
+              <li className='flex justify-center items-center' onClick={() => handleSelectCategory('Cold drinks')}>
+                <span className={clickedBar === 'Cold drinks' ? 'selected' : 'list'}>Cold drinks</span> 
+              </li>
           </ul>
         </div>
 
@@ -120,17 +142,15 @@ const MenuBar = () => {
               </li>
             </ul>
            </div>
-          </div>
-
+           </div>
           <div className='flex flex-col mt-1 md:mt-0'>
-            <div className='flex justify-center'><h1 className='font-bold'>{clickedBar}</h1></div>
+            <div className='flex justify-center'><h1 className='font-bold text-4xl'>{clickedBar}</h1></div>
             <div className='xs:grid xs:grid-cols-2 lg:grid-cols-3 max-w-[1100px] flex flex-col justify-center items-center w-full gap-3 p-3 overflow-y-auto md:h-[640px] h-full mb-20 md:mb-0'>
               {selectedArray.map((item) => (
                 <div key={item.id} className='p-3 bg-white rounded-3xl w-full max-w-[350px]'>
                   <Image className='w-full rounded-lg'
                     src={item.image} alt={item.title}
                     placeholder="blur"
-                    blurDataURL={item.blurDataURL}
                    /> 
                   <div className='pt-2 '>
                     <div className='space-y-[-10px]'>
