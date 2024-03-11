@@ -114,7 +114,7 @@ const MenuBar = () => {
                     placeholder="blur"
                    /> 
                   <div className='pt-2 '>
-                    <div className='space-y-[-10px]'>
+                    <div className=''>
                       <h3 className='text-xl font-bold text-black'>{item.title}</h3>
                       <h3 className='text-xl font-extrabold text-[#ff00e1]'>{item.sum}.000 <span className='text-white font-semibold'>sum</span></h3>
                     </div>
