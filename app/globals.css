@@ -96,12 +96,9 @@
     background-color: rgb(60, 59, 59);
 }
 
-.selectedBottomBar:hover {
-    background-color: rgb(200, 200, 200); /* Change background color on hover */
-}
 
 .BottomBarList:hover {
-    background-color: rgb(100, 100, 100); /* Change background color on hover */
+    background-color: rgb(100, 100, 100);
 }
 
 
