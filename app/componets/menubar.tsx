@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { FaCartPlus } from 'react-icons/fa';
 import { Newitems, Nuggets, Hits, Lavash, Doners, Burgers, Snacks, HotDrinks, Sauces, Salads, ColdDrinks } from '../utilities/data';
 import Image from 'next/image';
