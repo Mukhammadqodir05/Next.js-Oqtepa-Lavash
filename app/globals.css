@@ -58,37 +58,43 @@
   
   
 .selected {
-    background-color: rgb(0, 0, 0); 
     color: #ffffff;
     cursor: pointer;
     padding: 7px;
     border-radius: 8px;
-    font-size:larger
-}
-.list{
+    font-size: larger;
+    white-space: nowrap;
+    line-height: 1;
+    background-color: #ae00ff;
+  }
+  
+.list {
     cursor: pointer;
     padding: 7px;
     border-radius: 8px;
-    font-size:larger;
-   
+    font-size: larger;
+    white-space: nowrap;
+    line-height: 1;
+    color: #ffffff;
 }
 
 
 .selectedBottomBar {
-    background-color: rgb(255, 255, 255);
-    color: #000000;
+    color: #ffffff;
     cursor: pointer;
     padding: 10px;
     border-radius: 8px;
     font-size: larger;
     white-space: nowrap;
     line-height: 1;
+    background-color: rgb(0, 0, 0);
+    margin-left: 1px;
 }
 
 .BottomBarList {
     cursor: pointer;
     padding: 8px;
-    border-radius: 8px;
+    border-radius: 8px; 
     font-size: larger;
     color: #ffffff;
     white-space: nowrap;
@@ -102,7 +108,24 @@
 }
 
 
+/* Gradient border */
+.gradient-border {
+    --borderWidth: 1px; 
+    position: relative;
+}
 
-
-
+.gradient-border:after {
+    content: '';
+    top: calc(-1 * var(--borderWidth));
+    left: calc(-1 * var(--borderWidth));
+    height: calc(100% + var(--borderWidth) * 2);
+    width: calc(100% + var(--borderWidth) * 2);
+    background: linear-gradient(45deg, #833AB4, #405DE6, #833AB4, #C13584, #405DE6, #833AB4, #E1306C);
+    border-radius: inherit; 
+    z-index: -1;
+    animation: animatedgradient 2s ease alternate infinite;
+    background-size: 300% 300%;
+}
     
+
+  

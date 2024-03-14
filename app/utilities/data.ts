@@ -43,13 +43,13 @@ import CountryStylePotatoes from '/public/Oqtepa Lavash/Country style potatoes.j
 import Bread from '/public/Oqtepa Lavash/Bread.jpg'
 import jalapeno from '/public/Oqtepa Lavash/jalapeno.jpg'
 
-
 const Newitems = [ 
   { 
       id: 1,
       image: aPairOfLavash,
       sum: 85.000,
       title: 'A pair of lavash',
+      promoItems: '-10%',
       description: "2x beef pita bread, 2x small fries, 2x ketchup, 2x draft Pepsi 0.3l",
   },
   { 
@@ -57,6 +57,7 @@ const Newitems = [
       image: lavashSet,
       sum: 45.000,
       title: 'Lavash set',
+      promoItems: '-10%',
       description: 'Beef lavash, small french fries, 0.3l draft Pepsi and ketchup',
   },
   { 
@@ -64,12 +65,14 @@ const Newitems = [
       image: ablessinginlavash,
       title: 'A blessing in lavash',
       sum: 165.000,
+      promoItems: '-10%',
       description: '4x beef pita bread 4x small fries 4x draft Pepsi 0.3l',
   },
   { 
       id: 4,
       image: shaurmadaBaraka,
       sum: 145.000,
+      promoItems: '-10%',
       title: 'Shaurmada Baraka',
       description: '4x shawarma 4x small fries 4x draft Pepsi 0.3l',
   },
@@ -80,12 +83,14 @@ const Burgers = [
       id: 1,
       image: hamburger,
       sum: 25,
+      promoItems: '',
       title: 'Hamburger',
       description: "Butter bun seasoned with signature sauce, juicy beef patty, iceberg lettuce, pickles, tomatoes and sweet Brunswick onion rings.",
   },
   { 
       id: 2,
       image: cheeseburger, 
+      promoItems: '',
       sum: 28,
       title: 'Cheeseburger',
       description: 'Butter bun topped with signature sauce, juicy beef patty, cheese, iceberg lettuce, pickles, tomatoes and sweet Brunswick onion rings.',
@@ -94,6 +99,7 @@ const Burgers = [
       id: 3,
       image: bigBurger,
       title: 'Big Burger',
+      promoItems: '',
       sum: 35,
       description: 'Butter bun seasoned with signature sauce, 2 juicy beef patties, iceberg lettuce, pickles, tomatoes and sweet Brunswick onion rings',
   },
@@ -101,6 +107,7 @@ const Burgers = [
       id: 4,
       image: bigCheeseBurger,
       sum: 39,
+      promoItems: '',
       title: 'Big Cheeseburger',
       description: 'Butter bun seasoned with signature sauce, juicy beef patty (2 pieces), cheese, iceberg lettuce, pickles, tomatoes and sweet Brunswick onion rings.',
   },
@@ -110,6 +117,7 @@ const Nuggets = [
   {
     id: 1,
     image: nuggets5,
+    promoItems: '',
     sum: 15,
     title: "Nuggets 5",
     description: ""
@@ -117,6 +125,7 @@ const Nuggets = [
   {
     id: 2,
     image: nuggets8,
+    promoItems: '',
     sum: 20,
     title: "Nuggets 8",
     description: ""
@@ -124,6 +133,7 @@ const Nuggets = [
   {
     id: 3,
     image: nuggets15,
+    promoItems: '',
     sum: 30,
     title: "Nuggets 15",
     description: ""
@@ -131,6 +141,7 @@ const Nuggets = [
   {
     id: 4,
     image: nuggetsBoxing,
+    promoItems: '',
     sum: 35,
     title: "Nuggets Boxing",
     description: ""
@@ -139,6 +150,7 @@ const Nuggets = [
     id: 5,
     image: baitsy,
     sum: 20,
+    promoItems: '',
     title: "Baitsy",
     description: "Chicken bytes - aromatic, juicy, moderately spicy"
   },
@@ -146,6 +158,7 @@ const Nuggets = [
     id: 6,
     image: strips3,
     sum: 18,
+    promoItems: '',
     title: "Strips 3 pcs",
     description: "Juicy chicken with amazing flavor and crispy crust. No bones - just the tenderest fillet of chicken!"
   },
@@ -153,6 +166,7 @@ const Nuggets = [
     id: 7,
     image: strips5,
     sum: 29,
+    promoItems: '',
     title: "Strips 5 pcs",
     description: "Juicy chicken with amazing flavor and crispy skin. No bones - just the most tender chicken fillet!"
   },
@@ -160,6 +174,7 @@ const Nuggets = [
     id: 8,
     image: chickenBoxing,
     sum: 32,
+    promoItems: '',
     title: "Chicken Boxing",
     description: "Hearty Zhuzha boxing! Juicy and tender Strips 3 pcs. and a medium portion of fries!"
   }
@@ -169,6 +184,7 @@ const Doners = [
   { 
       id: 1,
       image: shawarma,
+      promoItems: '',
       sum: 26,
       title: 'Shawarma',
       description: 'Tandoor bread “Pita”, beef, cucumbers, tomatoes, red sauce, sweet onion rings “Brunswick”',
@@ -176,9 +192,26 @@ const Doners = [
   { 
       id: 2,
       image: dronePie,
+      promoItems: '',
       sum: 30,
       title: 'A doner pie',
       description: '',
+  },
+  {
+    id: 3,
+    image: Salad,
+    promoItems: '',
+    sum: 30,
+    title: "Salad",
+    description: " Smoked sausage, tender turkey, goose, grated cheese, mayonnaise"
+  },
+  {
+    id: 4,
+    image: CaesarSalad,
+    promoItems: '',
+    sum: 25,
+    title: "Caesar salad",
+    description: "Crispy iceberg lettuce leaves, juicy cherry tomatoes, grated Parmesan cheese and tender chicken fillet"
   },
 ];
 
@@ -187,6 +220,7 @@ const Lavash = [
       id: 1,
       image: largePitaBreadwithcheese,
       sum: 35,
+      promoItems: '',
       title: 'Large pita bread with cheese',
       description: 'Thin pita bread, Oqtepa signature sauce, donar meat, tomatoes, chips, mayonnaise, cheese',
   },
@@ -194,6 +228,7 @@ const Lavash = [
       id: 2,
       image: miniOriginalLavash,
       sum: 27,
+      promoItems: '',
       title: 'Mini original lavash',
       description: 'Mini dough pita, signature sauce "Oqtepa", donar meat, tomatoes, chips, mayonnaise',
   },
@@ -201,6 +236,7 @@ const Lavash = [
       id: 3,
       image: miniPitaBread,
       title: 'Mini pita bread with cheese',
+      promoItems: '',
       sum: 30,
       description: 'Mini pita dough, Oqtepa brand sauce, donar meat, tomatoes, chips, mayonnaise, cheese',
   },
@@ -211,6 +247,7 @@ const Hits = [
       id: 1,
       image: largePitaBread,
       sum: 32,
+      promoItems: '',
       title: 'Large original pita bread',
       description: 'Lavash dough, signature "Oqtepa" sauce, donar meat, tomatoes, chips, mayonnaiseLavash dough, "Oktepa" tomato sauce, corned beef, tomatoes, chips, mayonnaise',
   },
@@ -218,6 +255,7 @@ const Hits = [
       id: 2,
       image: tandoriLavash,
       sum: 34,
+      promoItems: '',
       title: 'Tandoori lavash',
       description: 'Dough tandoori lavash, signature sauce "Oqtepa", donar meat, tomatoes, chips, mayonnaise, sesame. It is baked in the ovenLavash dough, "Oktepa" tomato sauce, corned beef, tomatoes, chips, mayonnaise, celery. Baked in the oven',
   },
@@ -225,6 +263,7 @@ const Hits = [
       id: 3,
       image: haggi,
       title: 'Haggi',
+      promoItems: '',
       sum: 36,
       description: 'Lush “Baguette” bread seasoned with donar meat, mayonnaise, cucumbers, tomatoes, cheese, red sauce, sweet onion rings Brunsvik"',
   },
@@ -235,6 +274,7 @@ const HotDrinks = [
     id: 1,
     image: GreenTea03,
     sum: 4,
+    promoItems: '',
     title: "Green tea, 0.3L",
     description: "Toning hot green tea"
   },
@@ -242,6 +282,7 @@ const HotDrinks = [
     id: 2,
     image: GreenTeaLemon,
     sum: 7,
+    promoItems: '',
     title: "Green tea with lemon, 0.3L",
     description: "Toning hot green tea with aromatic lemon"
   },
@@ -249,6 +290,7 @@ const HotDrinks = [
     id: 3,
     image: BlackTeaLemon,
     sum: 7,
+    promoItems: '',
     title: "Black tea with lemon 0.3L",
     description: "Invigorating hot black tea with aromatic lemon"
   },
@@ -256,6 +298,7 @@ const HotDrinks = [
     id: 4,
     image: BlackTea03,
     sum: 4,
+    promoItems: '',
     title: "Black tea, 0.3L",
     description: "Invigorating hot black tea"
   }
@@ -265,6 +308,7 @@ const ColdDrinks = [
   {
     id: 1,
     image: Pepsi,
+    promoItems: '',
     sum: 10,
     title: "Pepsi",
     description: "Enjoy the icy coolness of Pepsi flavors"
@@ -272,6 +316,7 @@ const ColdDrinks = [
   {
     id: 2,
     image: Pepsi04,
+    promoItems: '',
     sum: 9,
     title: "Pepsi, 0.4L",
     description: "Enjoy the ice cold taste of Pepsi"
@@ -279,6 +324,7 @@ const ColdDrinks = [
   {
     id: 3,
     image: Pepsi03,
+    promoItems: '',
     sum: 7,
     title: "Pepsi, 0.3L",
     description: "Enjoy the ice cold taste of Pepsi"
@@ -286,6 +332,7 @@ const ColdDrinks = [
   {
     id: 4,
     image: JuicyValley,
+    promoItems: '',
     sum: 18,
     title: "Juicy Valley, 1L",
     description: "Juicy Valley is a classic line of favorite juices and nectars for the whole family"
@@ -293,34 +340,20 @@ const ColdDrinks = [
   {
     id: 5,
     image: DraftMirinda,
+    promoItems: '',
     sum: 9,
     title: "Draft Mirinda 0.4 l",
     description: ""
   }
 ];
 
-const Salads = [
-  {
-    id: 1,
-    image: Salad,
-    sum: 30,
-    title: "Salad",
-    description: " Smoked sausage, tender turkey, goose, grated cheese, mayonnaise"
-  },
-  {
-    id: 2,
-    image: CaesarSalad,
-    sum: 25,
-    title: "Caesar salad",
-    description: "Crispy iceberg lettuce leaves, juicy cherry tomatoes, grated Parmesan cheese and tender chicken fillet"
-  }
-];
 
 const Sauces = [
   {
     id: 1,
     image: whiteSauce,
     sum: 3,
+    promoItems: '',
     title: "White sauce",
     description: "Spicy sauce with a delicate creamy garlic flavor. Pairs perfectly with any snack (french fries, bites and strips)."
   },
@@ -328,6 +361,7 @@ const Sauces = [
     id: 2,
     image: ketchup,
     sum: 3,
+    promoItems: '',
     title: "Ketchup",
     description: "Ketchup Tanho is made from natural products. Perfectly combined with any snack (fries, bites and strips)."
   },
@@ -335,6 +369,7 @@ const Sauces = [
     id: 3,
     image: cheeseSauce,
     sum: 3,
+    promoItems: '',
     title: "Cheese sauce",
     description: "Cheese Sauce goes perfectly with crispy chicken and baked potatoes"
   }
@@ -345,6 +380,7 @@ const Snacks = [
     id: 1,
     image: FrenchFriesLarge,
     sum: 20,
+    promoItems: '',
     title: "French fries large",
     description: "Vegetable deep-fried and lightly salted potato sticks"
   },
@@ -352,6 +388,7 @@ const Snacks = [
     id: 2,
     image: FrenchFriesMedium,
     sum: 15,
+    promoItems: '',
     title: "French fries medium",
     description: "Vegetable deep-fried and lightly salted potato sticks"
   },
@@ -359,6 +396,7 @@ const Snacks = [
     id: 3,
     image:FrenchFriesSmall,
     sum: 10,
+    promoItems: '',
     title: "Small French fries",
     description: "Vegetable deep-fried and lightly salted potato sticks"
   },
@@ -366,6 +404,7 @@ const Snacks = [
     id: 4,
     image: CountryStylePotatoes,
     sum: 16,
+    promoItems: '',
     title: "Country style potatoes",
     description: "Vegetable deep-fried potato slices with spices"
   },
@@ -373,6 +412,7 @@ const Snacks = [
     id: 5,
     image: Bread,
     sum: 4,
+    promoItems: '',
     title: "Bread",
     description: "soft bun"
   },
@@ -380,10 +420,11 @@ const Snacks = [
     id: 6,
     image: jalapeno,
     sum: 3,
+    promoItems: '',
     title: "Jalapeno",
     description: "Hot jalapeno pepper"
   }
 ];
 
    
-export { Snacks, HotDrinks, Sauces, Salads, ColdDrinks, Newitems, Nuggets, Hits, Lavash, Doners, Burgers } ;
+export { Snacks, HotDrinks, Sauces, ColdDrinks, Newitems, Nuggets, Hits, Lavash, Doners, Burgers } ;

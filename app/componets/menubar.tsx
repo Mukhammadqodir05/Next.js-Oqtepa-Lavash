@@ -1,17 +1,30 @@
 'use client'
 import React, { useRef, useState } from 'react';
 import { FaCartPlus } from 'react-icons/fa';
-import { Newitems, Nuggets, Hits, Lavash, Doners, Burgers, Snacks, HotDrinks, Sauces, Salads, ColdDrinks } from '../utilities/data';
-import Image from 'next/image';
+import { Newitems, Nuggets, Hits, Lavash, Doners, Burgers, Snacks, HotDrinks, Sauces, ColdDrinks } from '../utilities/data';
+import Image, { StaticImageData } from 'next/image';
 import Categories from '../utilities/categories';
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
+import { MdAddShoppingCart, MdClose } from 'react-icons/md';
+
+
+type ItemType = {
+  id: number;
+  image: StaticImageData;
+  sum: number;
+  title: string;
+  promoItems: string,
+  description: string;
+};
 
 const MenuBar = () => {
   const [selectedArray, setSelectedArray] = useState(Newitems);
+  const [selectedItem, setSelectedItem] = useState<ItemType | null>(null);  
   const [clickedBar, setClickedBar] = useState("New items");
-  const [isLeftVisible, setIsLeftVisible] = useState(false)
-  const [isRightVisible, setIsRightVisible] = useState(true)
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const [isItemVisible, setIsItemVisible] = useState(false);
+  const [isLeftVisible, setIsLeftVisible] = useState(false);
+  const [isRightVisible, setIsRightVisible] = useState(true);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const handleSelectCategory = (category: string) => {
     switch (category) {
@@ -51,10 +64,6 @@ const MenuBar = () => {
         setSelectedArray(Sauces);
         setClickedBar('Sauces');
         break;
-      case 'Salads':
-        setSelectedArray(Salads);
-        setClickedBar('Salads');
-        break;
       case 'Cold drinks':
         setSelectedArray(ColdDrinks);
         setClickedBar('Cold drinks');
@@ -68,11 +77,11 @@ const MenuBar = () => {
   const handleScrollLeft = () => {
     if (scrollContainerRef.current) {
         scrollContainerRef.current.scrollTo({
-            left: scrollContainerRef.current.scrollLeft - 100,
+            left: scrollContainerRef.current.scrollLeft - 150,
             behavior: 'smooth'
         });
         setIsRightVisible(true);
-        if (scrollContainerRef.current.scrollLeft <= 100) {
+        if (scrollContainerRef.current.scrollLeft <= 150) {
             setIsLeftVisible(false);
         } else {
             setIsLeftVisible(true);
@@ -83,11 +92,11 @@ const MenuBar = () => {
   const handleScrollRight = () => {
       if (scrollContainerRef.current) {
           scrollContainerRef.current.scrollTo({
-              left: scrollContainerRef.current.scrollLeft + 100,
+              left: scrollContainerRef.current.scrollLeft + 150,
               behavior: 'smooth'
           });
           setIsLeftVisible(true);
-          if (scrollContainerRef.current.scrollWidth - scrollContainerRef.current.clientWidth <= scrollContainerRef.current.scrollLeft + 100) {
+          if (scrollContainerRef.current.scrollWidth - scrollContainerRef.current.clientWidth <= scrollContainerRef.current.scrollLeft + 150) {
               setIsRightVisible(false);
           } else {
               setIsRightVisible(true);
@@ -95,52 +104,57 @@ const MenuBar = () => {
       }
   };
 
+
   return (
     <main className='flex w-full h-full flex-col items-center justify-center'>
       {/* Bottombar */}
         <div className='flex md:hidden w-full fixed border-t borderColor bg-black bottom-0 left-0 right-0 overflow-x-hidden items-center'>
           { isLeftVisible &&
             <div className='flex p-2 items-center absolute text-white left-0 bottom-0 pr-4 w-20 h-full bg-gradient-to-r from-black from-60% to-transparent'>
-              <SlArrowLeft onClick={handleScrollLeft} className='cursor-pointer' size={20} />
+              <SlArrowLeft title='Move Left' onClick={handleScrollLeft} className='cursor-pointer' size={20} />
+              </div>
+            }
+            <div className="flex h-16 pl-6 w-full overflow-x-hidden">
+              <div ref={scrollContainerRef} className="flex gap-2 justify-between items-center text-white h-full overflow-x-auto" style={{ display: 'flex' }}>
+                {Categories.map((category) => (
+                  <div className='flex justify-center items-center w-full' key={category} onClick={() => handleSelectCategory(category)}>
+                    <span className={clickedBar === category ? 'selectedBottomBar gradient-border' : 'BottomBarList'}>{category}</span>
+                  </div>
+                ))}
+                <div className='flex pl-5 w-full'></div> 
+              </div>
             </div>
-          }
-          <div className="flex h-16 pl-5 w-full overflow-x-hidden">
-            <div ref={scrollContainerRef} className="flex gap-2 justify-between items-center text-white h-full overflow-x-auto" style={{ display: 'flex' }}>
-              {Categories.map((category) => (
-                <div className='flex justify-center items-center w-full' key={category} onClick={() => handleSelectCategory(category)}>
-                  <span className={clickedBar === category ? 'selectedBottomBar' : 'BottomBarList'}>{category}</span>
-                </div>
-              ))}
-              <div className='flex pl-3 w-full'></div> 
-            </div>
+
+            { isRightVisible &&
+              <div className='flex items-center absolute text-white right-0 p-2 bottom-0 bg-gradient-to-l justify-end from-black from-60% to-transparent w-20 h-full'>
+                <SlArrowRight onClick={handleScrollRight} title='Move Right' className='cursor-pointer' size={20} />
+              </div>
+            }
           </div>
 
-          { isRightVisible &&
-            <div className='flex items-center absolute text-white right-0 p-2 bottom-0 bg-gradient-to-l justify-end from-black from-60% to-transparent w-20 h-full'>
-              <SlArrowRight onClick={handleScrollRight} className='cursor-pointer' size={20} />
-            </div>
-          }
-          </div>
           
           <div className='flex gap-2'>
           {/* Sidebar */}
-            <div className="md:flex hidden h-[700px] w-full max-w-[200px] lg:max-w-[250px]">
-              <div className="w-full flex flex-col p-4 shadow-lg bg-gradient-to-br from-purple-800 to-indigo-500 text-white">
-                <span className="text-4xl font-bold mb-4">Menu</span>
-                <ul className="w-full flex flex-col justify-center gap-3 mt-1">
-                  {Categories.map((category) => (
-                    <li key={category} onClick={() => handleSelectCategory(category)}>
-                      <span className={clickedBar === category ? 'selected' : 'list'}>{category}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+          <div className="md:flex hidden h-[700px] w-full max-w-[200px] lg:max-w-[250px]">
+            <div className="w-full flex flex-col p-4 border-l border-r borderColor">
+              <span className="text-4xl font-bold mb-4">Menu</span>
+              <ul className="w-full flex flex-col gap-4 mt-1">
+                {Categories.map((category) => (
+                  <li className="w-full" key={category} onClick={() => handleSelectCategory(category)}>
+                    <span className={clickedBar === category ? 'selected' : 'list'}>{category}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className='flex flex-col mt-1 md:mt-0'>
-              <div className='flex justify-center'><h1 className='font-bold text-4xl'>{clickedBar}</h1></div>
+          </div>
+
+
+        {/* Menubar */}
+          <div className='flex flex-col mt-1 md:mt-0'>
+              <div className='flex justify-center pb-2'><h1 className='font-bold text-4xl'>{clickedBar}</h1></div>
               <div className='xs:grid xs:grid-cols-2 lg:grid-cols-3 max-w-[1100px] flex flex-col justify-center items-center w-full gap-3 p-3 overflow-y-auto md:h-[640px] h-full mb-20 md:mb-0'>
                 {selectedArray.map((item) => (
-                  <div key={item.id} className='p-3 bg-white rounded-3xl w-full max-w-[350px]'>
+                  <div key={item.id} onClick={() => setSelectedItem(item)} className='p-3 bg-white rounded-3xl w-full max-w-[350px]'>
                     <Image className='w-full rounded-lg'
                       src={item.image} alt={item.title}
                       placeholder="blur"
@@ -149,10 +163,10 @@ const MenuBar = () => {
                         <h3 className='text-xl font-bold text-black'>{item.title}</h3>
                         <h3 className='text-xl font-extrabold text-[#ff00e1]'>{item.sum}.000 <span className='text-white font-semibold'>sum</span></h3>
                       <div className='flex justify-between items-center mt-3'>
-                        <span className='text-green-500 font-semibold'>-10%</span>
-                        <button className='bg-[#4b2971] border text-white rounded-full p-2 w-full max-w-[100px]'>
-                          Check
-                        </button>
+                        <span className='text-green-500 font-semibold'>{item?.promoItems}</span>
+                         <button onClick={() => setIsItemVisible(true)} className='bg-[#4b2971] border text-white rounded-full p-2 w-full max-w-[100px]'>
+                           Check
+                         </button>
                         <div>
                           <button className='bg-green-500 text-white rounded-full p-2'>
                             <FaCartPlus size={20} />
@@ -165,6 +179,30 @@ const MenuBar = () => {
               </div>
             </div>
           </div>
+           
+
+        {/* Show the slected item in depth */}
+          {isItemVisible && (
+            <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-900 bg-opacity-90 z-50">
+              <div className="bg-gray-100 p-4 space-y-5 max-w-md rounded-lg border shadow-xl">
+                <div className="flex justify-end mt-[-10px]">
+                  <MdClose title='Close' size={30} className="text-black hover:bg-slate-300 rounded-full cursor-pointer" onClick={() => setIsItemVisible(false)} />
+                </div>
+                {selectedItem?.image && (
+                  <Image src={selectedItem?.image} alt="" className="w-full rounded-lg mb-4 shadow-md" />
+                )}
+                <h2 className="text-3xl font-bold text-purple-600 mb-2">{selectedItem?.title}</h2>
+                <p className="text-gray-800 mb-4">{selectedItem?.description}</p>
+                <div className="flex justify-between items-center">
+                  <span className="text-xl font-bold text-purple-600">{selectedItem?.sum}.000 sum</span>
+                  <button title='Add to cart' className="bg-purple-600 text-white rounded-full p-2 flex items-center space-x-2 hover:bg-purple-700 px-4">
+                    <MdAddShoppingCart size={30} />
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
       </main>
     );
 };

@@ -12,7 +12,9 @@
     "bootstrap": "^5.3.3",
     "firebase": "^10.8.1",
     "framer-motion": "^11.0.8",
+    "js-cookie": "^3.0.5",
     "next": "14.1.1",
+    "nprogress": "^0.2.0",
     "react": "^18",
     "react-bootstrap": "^2.10.1",
     "react-dom": "^18",
@@ -21,6 +23,7 @@
     "react-spinners": "^0.13.8"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

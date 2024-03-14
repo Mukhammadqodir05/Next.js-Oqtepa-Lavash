@@ -8,7 +8,6 @@ const Categories = [
          'Snacks',
          'Hot drinks',
          'Sauces',
-         'Salads',
          'Cold drinks'
 ];
 export default Categories;
