@@ -110,9 +110,7 @@ const MenuBar = () => {
   };
 
   return (
-    <>
-    { ownerUser ?
-     (<main className='flex w-full h-full flex-col items-center justify-center'>
+    <main className='flex w-full h-full flex-col items-center justify-center'>
      {/* Bottombar */}
         <div className='flex md:hidden w-full fixed border-t borderColor bg-black bottom-0 left-0 right-0 overflow-x-hidden items-center'>
           { isLeftVisible &&
@@ -224,11 +222,7 @@ const MenuBar = () => {
               ''
             )
           }
-     </main>)
-    :
-     (<div className='flex justify-center items-center h-screen bg-black'><PuffLoader size={150} color='#F9008E' loading={true} /></div>)
-     }
-    </> 
+    </main>
   )
 };
 
