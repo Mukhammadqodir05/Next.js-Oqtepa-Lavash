@@ -33,17 +33,20 @@ const Page = () => {
     setSelectedTime(e.target.value);
   };
 
-  type Card = {
+  interface Card {
     cardNumber: number;
     expiryDate: string;
-  };
- const [selectedCard, setSelectedCard] = useState<Card | null>(null);
-
-  const handleCardClick = (item: Card) => {
-    setSelectedCard(item);
+  }
+  
+  const [selectedCard, setSelectedCard] = useState<Card | null>(null);
+  
+  const handleCardClick = (item: string) => {
+    const cardItem = JSON.parse(item) as Card; // Assuming item is a JSON string representing a Card object
+    setSelectedCard(cardItem);
     setShowCardOptions(false);
-    console.log(item)
+    console.log(cardItem);
   };
+  
 
   type ItemType = {
          image: string;
