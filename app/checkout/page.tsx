@@ -34,18 +34,20 @@ const Page = () => {
   };
 
   interface Card {
-    cardNumber: number;
+    cardNumber: string;
     expiryDate: string;
   }
   
+
+ 
   const [selectedCard, setSelectedCard] = useState<Card | null>(null);
   
-  const handleCardClick = (item: string) => {
-    const cardItem = JSON.parse(item) as Card; // Assuming item is a JSON string representing a Card object
-    setSelectedCard(cardItem);
+  const handleCardClick = (card: Card) => {
+    setSelectedCard(card);
     setShowCardOptions(false);
-    console.log(cardItem);
+    console.log(card);
   };
+  
   
 
   type ItemType = {

@@ -9,12 +9,13 @@ interface User {
   lastName: string;
   userName: string;
   orders: string[];
-  card: string[];
+  card: { cardNumber: string; expiryDate: string }[]; 
   cart: string[];
   timestamp: string;
   uid: string;
   deliveryAddress: string;
 }
+
 
 const OwnerUserdata = () => {
   const [user] = useAuthState(auth);
