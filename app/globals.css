@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .navbar {
     background-color: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(10px);
@@ -18,7 +19,11 @@
     box-shadow: 10px 2px 8px rgba(72, 69, 74, 0.5); 
     padding: 1rem; 
 }
-    
+  
+.cartBg{
+    background:linear-gradient(to right,  #DB76E4, #D179EB, #C071EF, #AD6AF2);
+
+}
 
 .gradient-text {
     background:linear-gradient(to right, #F9008E, #F733A2, #F44CB4, #F060C6, #EB71D5, #E373DD, #DB76E4, #D179EB, #C071EF, #AD6AF2, #9664F7, #785FFB);

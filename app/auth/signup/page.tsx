@@ -33,7 +33,7 @@ const SignUp = () => {
           lastName: '',
           email: email,
           location: "",
-          card: '',
+          card: [],
           cart: [],
           deliveryAddress: '',
           orders: [],
@@ -107,7 +107,7 @@ const SignUp = () => {
         <div className='absolute flex gap-2 mt-[440px]'>
           <p className="text-sm text-white">Already have an account?</p>
           <Link href="/auth/signin"
-            className="underline text-sm hover:underline"
+            className="underline text-sm hover:underline text-blue-500"
           >
             Sign in
           </Link>

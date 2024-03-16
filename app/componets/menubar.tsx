@@ -1,12 +1,14 @@
 'use client'
 import React, { useRef, useState } from 'react';
-import { FaCartPlus } from 'react-icons/fa';
 import { Newitems, Nuggets, Hits, Lavash, Doners, Burgers, Snacks, HotDrinks, Sauces, ColdDrinks } from '../utilities/data';
 import Image, { StaticImageData } from 'next/image';
 import Categories from '../utilities/categories';
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import { MdAddShoppingCart, MdClose } from 'react-icons/md';
-
+import { useSelectedItemStore } from '../store/selectedItemStore';
+import AddToCard from './addToCard';
+import { FadeLoader, PuffLoader } from 'react-spinners';
+import OwnerUserdata from './owneruserdata';
 
 type ItemType = {
   id: number;
@@ -21,10 +23,12 @@ const MenuBar = () => {
   const [selectedArray, setSelectedArray] = useState(Newitems);
   const [selectedItem, setSelectedItem] = useState<ItemType | null>(null);  
   const [clickedBar, setClickedBar] = useState("New items");
-  const [isItemVisible, setIsItemVisible] = useState(false);
   const [isLeftVisible, setIsLeftVisible] = useState(false);
   const [isRightVisible, setIsRightVisible] = useState(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const { setSelectedStoreItem } = useSelectedItemStore();
+  const { handleAddToCart, loading, isItemVisible, setIsItemVisible } = AddToCard()
+  const { ownerUser } = OwnerUserdata();
 
   const handleSelectCategory = (category: string) => {
     switch (category) {
@@ -104,7 +108,6 @@ const MenuBar = () => {
       }
   };
 
-
   return (
     <main className='flex w-full h-full flex-col items-center justify-center'>
       {/* Bottombar */}
@@ -131,7 +134,6 @@ const MenuBar = () => {
               </div>
             }
           </div>
-
           
           <div className='flex gap-2'>
           {/* Sidebar */}
@@ -148,30 +150,33 @@ const MenuBar = () => {
             </div>
           </div>
 
-
         {/* Menubar */}
           <div className='flex flex-col mt-1 md:mt-0'>
               <div className='flex justify-center pb-2'><h1 className='font-bold text-4xl'>{clickedBar}</h1></div>
               <div className='xs:grid xs:grid-cols-2 lg:grid-cols-3 max-w-[1100px] flex flex-col justify-center items-center w-full gap-3 p-3 overflow-y-auto md:h-[640px] h-full mb-20 md:mb-0'>
                 {selectedArray.map((item) => (
-                  <div key={item.id} onClick={() => setSelectedItem(item)} className='p-3 bg-white rounded-3xl w-full max-w-[350px]'>
-                    <Image className='w-full rounded-lg'
+                  <div key={item.id} onClick={() => {setSelectedItem(item); setSelectedStoreItem(item)}} className='p-3 bg-white rounded-3xl w-full max-w-[350px]'>
+                  
+                  { ownerUser &&
+                    <span className="flex justify-center items-center bg-red-600 text-white text-xs w-6 h-6 rounded-full p-1">
+                      {ownerUser?.cart?.filter((item2) => typeof item2 === 'object' && (item2 as {title:string}).title === item.title).length}
+                    </span>
+                  }
+      
+                    <Image onClick={() => setIsItemVisible(true)} className='w-full rounded-lg cursor-pointer'
                       src={item.image} alt={item.title}
                       placeholder="blur"
                     /> 
                     <div className='pt-2 '>
                         <h3 className='text-xl font-bold text-black'>{item.title}</h3>
-                        <h3 className='text-xl font-extrabold text-[#ff00e1]'>{item.sum}.000 <span className='text-white font-semibold'>sum</span></h3>
-                      <div className='flex justify-between items-center mt-3'>
-                        <span className='text-green-500 font-semibold'>{item?.promoItems}</span>
-                         <button onClick={() => setIsItemVisible(true)} className='bg-[#4b2971] border text-white rounded-full p-2 w-full max-w-[100px]'>
-                           Check
-                         </button>
-                        <div>
-                          <button className='bg-green-500 text-white rounded-full p-2'>
-                            <FaCartPlus size={20} />
-                          </button>
+                        <div className='flex justify-between'>
+                          <h3 className='text-xl font-extrabold text-[#ff00e1]'>{item.sum}.000 <span className='text-white font-semibold'>sum</span></h3>
+                          <span className='text-green-500 font-semibold'>{item?.promoItems}</span>
                         </div>
+                      <div className='flex justify-center items-center mt-3'>
+                        <button onClick={() => setIsItemVisible(true)} className='bg-[#4b2971] border text-white rounded-full p-2 w-full max-w-[100px]'>
+                          Check
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -179,8 +184,7 @@ const MenuBar = () => {
               </div>
             </div>
           </div>
-           
-
+          
         {/* Show the slected item in depth */}
           {isItemVisible && (
             <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-900 bg-opacity-90 z-50">
@@ -195,16 +199,29 @@ const MenuBar = () => {
                 <p className="text-gray-800 mb-4">{selectedItem?.description}</p>
                 <div className="flex justify-between items-center">
                   <span className="text-xl font-bold text-purple-600">{selectedItem?.sum}.000 sum</span>
-                  <button title='Add to cart' className="bg-purple-600 text-white rounded-full p-2 flex items-center space-x-2 hover:bg-purple-700 px-4">
+                  <button onClick={handleAddToCart} title='Add to cart' className="bg-purple-600 text-white rounded-full p-2 flex items-center space-x-2 hover:bg-purple-700 px-4 relative">
                     <MdAddShoppingCart size={30} />
+                    { ownerUser &&
+                      <span className="flex justify-center items-center absolute -top-1 -right-[1px] bg-red-600 text-white text-xs w-6 h-6 rounded-full p-1">
+                        {ownerUser?.cart.filter((item) => typeof item === 'object' && (item as { title: string }).title === selectedItem?.title).length}
+                      </span>
+                    }
                   </button>
                 </div>
               </div>
             </div>
           )}
 
-      </main>
-    );
+          {loading ? (
+                <div className="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50 p-2">
+                  <FadeLoader color='#F9008E' loading={true} /> 
+                </div>
+            ) : (
+              ''
+            )
+          }
+    </main>
+  )
 };
 
 export default MenuBar;

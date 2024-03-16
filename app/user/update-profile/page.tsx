@@ -10,20 +10,28 @@ import { PulseLoader } from 'react-spinners';
 
 const Page = () => { 
     const { ownerUser } = OwnerUserdata();
-    const [fullName, setFullName] = useState('');
-    const [card, setCard] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [deliveryAddress, setDeliveryAddress] = useState('');
     const [loading, setLoading] = useState(false);
     const [user] = useAuthState(auth);
 
-    const MAX_FULLNAME_LENGTH = 70;
-    const handleFullNameChange = (e: { target: { value: any; }; }) => {
-         const inputFullNmae = e.target.value;
-         const limitedFullName = inputFullNmae.substring(0, MAX_FULLNAME_LENGTH); 
-         setFullName(limitedFullName);
+    const MAX_FIRSTNAME_LENGTH = 70;
+    const handleFirstNameChange = (e: { target: { value: any; }; }) => {
+         const inputFirstName = e.target.value;
+         const limitedFirstName = inputFirstName.substring(0,  MAX_FIRSTNAME_LENGTH); 
+         setFirstName(limitedFirstName);
     };
-    const remainingFullNameCharacters = MAX_FULLNAME_LENGTH - fullName.length;
+    const remainingFirstNameCharacters = MAX_FIRSTNAME_LENGTH - firstName.length;
  
+    const MAX_LASTNAME_LENGTH = 70;
+    const handleLastNameChange = (e: { target: { value: any; }; }) => {
+         const inputLastName = e.target.value;
+         const limitedLastName = inputLastName.substring(0,  MAX_LASTNAME_LENGTH); 
+         setLastName(limitedLastName);
+    };
+    const remainingLastNameCharacters = MAX_LASTNAME_LENGTH - lastName.length;
+
     const MAX_LOCATION_LENGTH = 250;
     const handleAddressChange = (e: { target: { value: any; }; }) => {
          const inputLocation = e.target.value;
@@ -32,15 +40,7 @@ const Page = () => {
      };
     const remainingLocationCharacters = MAX_LOCATION_LENGTH - deliveryAddress.length;
   
-    const MAX_CARD_LENGTH = 50;
-    const handleCardChange = (e: { target: { value: any; }; }) => {
-         const inputBio = e.target.value;
-         const limitedBio = inputBio.substring(0, MAX_CARD_LENGTH); 
-         setCard(limitedBio);
-    };
-    const remainingCharacters = MAX_CARD_LENGTH- card.length;
-   
-
+ 
     const handleUpdateData = async (e: { preventDefault: () => void; }) => {
      e.preventDefault();
      setLoading(true);
@@ -49,8 +49,8 @@ const Page = () => {
        if (ownerUser && user) {
          const userRef = doc(db, "users", user.uid);
          const newData = {
-           fullName: fullName || ownerUser.fullName ||"", 
-           card: card || ownerUser.card || "",
+           firstName: firstName || ownerUser.firstName ||"", 
+           lastName: lastName || ownerUser.lastName ||"", 
            deliveryAddress: deliveryAddress || ownerUser.deliveryAddress || "", 
          };
    
@@ -65,7 +65,6 @@ const Page = () => {
      }
     };
    
-
     return (
       <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-90 z-50">
          <form className="p-4 max-w-md w-full bg-white shadow rounded-lg" onSubmit={handleUpdateData}>
@@ -73,29 +72,30 @@ const Page = () => {
                   <MdClose title='Close' size={30} className="text-black hover:bg-slate-300 rounded-full cursor-pointer"/>
             </Link>
            <div className="mb-4">
-             <label htmlFor="full-name" className="block text-gray-700 text-sm font-bold mb-2">
-               Full Name <span className="text-gray-500 text-sm">{remainingFullNameCharacters}/{MAX_FULLNAME_LENGTH}</span>
+             <label htmlFor="first-name" className="block text-gray-700 text-sm font-bold mb-2">
+               First Name <span className="text-gray-500 text-sm">{remainingFirstNameCharacters}/{MAX_FIRSTNAME_LENGTH}</span>
              </label>
              <input
-               id="full-name"
+               id="first-name"
                type="text"
-               value={fullName}
-               onChange={handleFullNameChange}
+               value={firstName}
+               onChange={handleFirstNameChange}
                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
              />
            </div>
            <div className="mb-4">
-             <label htmlFor="card" className="block text-gray-700 text-sm font-bold mb-2">
-               Card <span className="text-gray-500 text-sm">{remainingCharacters}/{MAX_CARD_LENGTH}</span>
+             <label htmlFor="last-name" className="block text-gray-700 text-sm font-bold mb-2">
+               Last Name <span className="text-gray-500 text-sm">{remainingLastNameCharacters}/{MAX_LASTNAME_LENGTH}</span>
              </label>
              <input
-               id="card"
+               id="last-name"
                type="text"
-               value={card}
-               onChange={handleCardChange}
+               value={lastName}
+               onChange={handleLastNameChange}
                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
              />
            </div>
+        
            <div className="mb-4">
              <label htmlFor="address" className="block text-gray-700 text-sm font-bold mb-2">
                Address <span className="text-gray-500 text-sm">{remainingLocationCharacters}/{MAX_LOCATION_LENGTH}</span>

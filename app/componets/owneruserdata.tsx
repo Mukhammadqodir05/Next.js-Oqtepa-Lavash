@@ -5,7 +5,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 interface User {
   email: string;
-  fullName: string;
+  firstName: string;
+  lastName: string;
   userName: string;
   orders: string[];
   card: string[];

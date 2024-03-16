@@ -7,7 +7,6 @@ import { MdClose } from "react-icons/md";
 import Logo from './logo';
 import { auth } from '../firebase'
 import { useAuthState } from 'react-firebase-hooks/auth';
-import Cookies from 'js-cookie';
 
 const Navbar = () => {
   const[isNavOpen, setIsNavOpen] = useState(false)
@@ -17,11 +16,6 @@ const Navbar = () => {
     setIsNavOpen((prev) => !prev)
   }
 
-  const handleSignOut = () => {
-    auth.signOut();
-    Cookies.remove('loggedin');
-  };
-
   return (
     <nav className="flex w-full navbar p-0 items-center justify-between border-b borderColor text-white fixed-top h-[80px]">
       <div className='ml-5 md:ml-10 cursor-pointer'>
@@ -30,18 +24,14 @@ const Navbar = () => {
           <div className="hidden md:flex md:items-center md:gap-6 mr-10">
               <Link href="/" className="text-white no-underline text-xl font-semibold">Home</Link>
               <Link href="/branches" className="text-white no-underline text-xl font-semibold">Branches</Link>
-              <Link href="/about" className="text-white no-underline text-xl font-semibold">About</Link>
               <Link href="/contact" className="text-white no-underline text-xl font-semibold">Contact</Link>
+              <Link href="/cart" className="text-white no-underline text-xl font-semibold">Cart</Link>
+              <Link href="/user/orders" className="text-white no-underline text-xl font-semibold">Orders</Link>
               { user ?
                 <Link href="/user"  className=' text-[#4f69ff]'><VscAccount size={30} /></Link>
                 : (
                 <Link href="/auth/signup"  className=' text-[#4f69ff]'><VscAccount size={30} /></Link>
                 )
-              }
-              { user &&
-                <button title='Log out' onClick={handleSignOut} className="text-white no-underline text-xl font-semibold">
-                   <VscSignOut  size={30} />
-                </button>  
               }
             </div>
             <div className="flex items-center md:hidden mr-3">
@@ -62,8 +52,9 @@ const Navbar = () => {
                 <div className="flex ml-5 flex-col gap-6 mt-6">
                   <Link href="/" className="text-white cursor-pointer no-underline text-xl font-semibold">Home</Link>
                   <Link href="/branches" className="text-white cursor-pointer no-underline text-xl font-semibold">Branches</Link>
-                  <Link href="/about" className="text-white cursor-pointer no-underline text-xl font-semibold">About</Link>
                   <Link href="/contact" className="text-white cursor-pointer no-underline text-xl font-semibold">Contact</Link>
+                  <Link href="/cart" className="text-white cursor-pointer no-underline text-xl font-semibold">Cart</Link>
+                  <Link href="/user/orders" className="text-white no-underline text-xl font-semibold">Orders</Link>
                   { user ?
                     <div className='flex gap-2'>
                       <Link href="/user"  className='flex no-underline gap-2 text-[#4f69ff]'>
@@ -80,15 +71,6 @@ const Navbar = () => {
                     </div>
                     )
                   }
-
-                  { user &&
-                  <div className='flex gap-2'>
-                    <button title='Log out ' onClick={handleSignOut} className="text-white no-underline text-xl font-semibold flex gap-2">
-                     <h4 className='text-xl cursor-pointer'>Sign out</h4>
-                      <VscSignOut  size={30} />
-                    </button>
-                    </div>
-                  }
                 </div>
               </div>
            )}
@@ -97,6 +79,8 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
 
 
 

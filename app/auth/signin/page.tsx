@@ -76,7 +76,7 @@ const SignIn = () => {
           
           <div className="mt-6 text-center">
             <p className="text-base">Don't have an account?</p>
-            <Link href="/auth/signup" className="underline text-base hover:underline">
+            <Link href="/auth/signup" className="underline text-base hover:underline text-blue-600">
               Create an account
             </Link>
           </div>
