@@ -25,6 +25,7 @@ const MenuBar = () => {
   const [selectedItem, setSelectedItem] = useState<ItemType | null>(null);  
   const [clickedBar, setClickedBar] = useState("New items");
   const [isLeftVisible, setIsLeftVisible] = useState(false);
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
   const [isRightVisible, setIsRightVisible] = useState(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { setSelectedStoreItem } = useSelectedItemStore();
@@ -108,6 +109,10 @@ const MenuBar = () => {
           }
       }
   };
+
+  setTimeout(() => {
+   setIsButtonClicked(false)
+  }, 5000) 
 
   return (
     <main className='flex w-full h-full flex-col items-center justify-center'>
@@ -201,26 +206,39 @@ const MenuBar = () => {
                 <span className="text-xl font-bold text-purple-600">{selectedItem?.sum}.000 sum</span>
                 <div className="flex justify-between items-center">
                   <Link className='text-xl bg-slate-300 no-underline p-2 px-3 rounded-2xl' href='/cart'>View cart</Link>
-                  <button onClick={handleAddToCart} title='Add to cart' className="bg-purple-600 text-white rounded-full p-2 flex items-center space-x-2 hover:bg-purple-700 px-4 relative">
-                    <MdAddShoppingCart size={30} />
-                    { ownerUser &&
-                      <span className="flex justify-center items-center absolute -top-1 -right-[1px] bg-red-600 text-white text-xs w-6 h-6 rounded-full p-1">
-                        {ownerUser?.cart.filter((item) => typeof item === 'object' && (item as { title: string }).title === selectedItem?.title).length}
-                      </span>
-                    }
-                  </button>
+                  { ownerUser ?
+                    ( <button onClick={handleAddToCart} title='Add to cart' className="bg-purple-600 text-white rounded-full p-2 flex items-center space-x-2 hover:bg-purple-700 px-4 relative">
+                      <MdAddShoppingCart size={30} />
+                      { ownerUser &&
+                        <span className="flex justify-center items-center absolute -top-1 -right-[1px] bg-red-600 text-white text-xs w-6 h-6 rounded-full p-1">
+                          {ownerUser?.cart.filter((item) => typeof item === 'object' && (item as { title: string }).title === selectedItem?.title).length}
+                        </span>
+                      }
+                    </button>)
+                    : (
+                      <button onClick={() => setIsButtonClicked((prev) =>! prev)} title='Add to cart' className="bg-purple-600 text-white rounded-full p-2 flex items-center space-x-2 hover:bg-purple-700 px-4 relative">
+                         <MdAddShoppingCart size={30} />
+                     </button>
+                    )
+                 }
                 </div>
               </div>
             </div>
           )}
-
-          {loading ? (
+  
+             {isButtonClicked &&
                 <div className="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50 p-2">
-                  <FadeLoader color='#F9008E' loading={true} /> 
+                 <h1 className='text-2xl bg-[#ff9b05] p-4 rounded-2xl'>Please register in order to use the card!</h1>
                 </div>
-            ) : (
-              ''
-            )
+              }
+
+            {loading ? (
+                  <div className="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50 p-2">
+                    <FadeLoader color='#F9008E' loading={true} /> 
+                  </div>
+              ) : (
+                ''
+              )
           }
     </main>
   )

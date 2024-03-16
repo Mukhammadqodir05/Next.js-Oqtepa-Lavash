@@ -8,6 +8,7 @@ import { setDoc,doc} from 'firebase/firestore';
 import { BeatLoader } from 'react-spinners';
 import Link from 'next/link';
 import Cookies from 'js-cookie'
+import { useRouter } from 'next/navigation';
 
 
 const SignUp = () => {
@@ -17,6 +18,7 @@ const SignUp = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter() 
 
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -48,7 +50,7 @@ const SignUp = () => {
       console.error(error);
       setError('Something went wrong. Please try again.');
     } finally {
-      window.location.href = `/`;
+      router.push('/')
       setLoading(false);
       setError('');
     }
