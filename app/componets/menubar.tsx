@@ -110,8 +110,7 @@ const MenuBar = () => {
 
   return (
     <main className='flex w-full h-full flex-col items-center justify-center'>
-      
-      {/* Bottombar */}
+     {/* Bottombar */}
         <div className='flex md:hidden w-full fixed border-t borderColor bg-black bottom-0 left-0 right-0 overflow-x-hidden items-center'>
           { isLeftVisible &&
             <div className='flex p-2 items-center absolute text-white left-0 bottom-0 pr-4 w-20 h-full bg-gradient-to-r from-black from-60% to-transparent'>
