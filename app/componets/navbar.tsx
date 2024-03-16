@@ -20,9 +20,9 @@ const Navbar = () => {
 
   return (
     <nav className="flex w-full navbar p-0 items-center justify-between border-b borderColor text-white fixed-top h-[80px]">
-      <div className='ml-5 md:ml-10 cursor-pointer'>
-        <Logo />
-         </div>
+       <Link href='/' className='ml-5 md:ml-10 cursor-pointer'>
+            <Logo />
+         </Link>
           <div className="hidden md:flex md:items-center md:gap-6 mr-10">
               <Link href="/" className="text-white no-underline text-xl font-semibold">Home</Link>
               <Link href="/branches" className="text-white no-underline text-xl font-semibold">Branches</Link>
