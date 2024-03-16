@@ -1,16 +1,18 @@
 'use client'
-import React, { useState }  from 'react';
+import React, { useEffect, useState }  from 'react';
 import Link from 'next/link';
 import { FaListUl } from "react-icons/fa6";
-import { VscAccount, VscSignOut } from "react-icons/vsc";
+import { VscAccount } from "react-icons/vsc";
 import { MdClose } from "react-icons/md";
 import Logo from './logo';
 import { auth } from '../firebase'
 import { useAuthState } from 'react-firebase-hooks/auth';
+import Cookies from 'js-cookie';
 
 const Navbar = () => {
   const[isNavOpen, setIsNavOpen] = useState(false)
   const [user] = useAuthState(auth);
+  const loggedInCookie = Cookies.get('loggedin');
 
   const handleNavbar = () => {
     setIsNavOpen((prev) => !prev)
@@ -27,7 +29,7 @@ const Navbar = () => {
               <Link href="/contact" className="text-white no-underline text-xl font-semibold">Contact</Link>
               <Link href="/cart" className="text-white no-underline text-xl font-semibold">Cart</Link>
               <Link href="/user/orders" className="text-white no-underline text-xl font-semibold">Orders</Link>
-              { user ?
+              { user && loggedInCookie ?
                 <Link href="/user"  className=' text-[#4f69ff]'><VscAccount size={30} /></Link>
                 : (
                 <Link href="/auth/signup"  className=' text-[#4f69ff]'><VscAccount size={30} /></Link>
@@ -55,7 +57,7 @@ const Navbar = () => {
                   <Link href="/contact" className="text-white cursor-pointer no-underline text-xl font-semibold">Contact</Link>
                   <Link href="/cart" className="text-white cursor-pointer no-underline text-xl font-semibold">Cart</Link>
                   <Link href="/user/orders" className="text-white no-underline text-xl font-semibold">Orders</Link>
-                  { user ?
+                  { user && loggedInCookie ?
                     <div className='flex gap-2'>
                       <Link href="/user"  className='flex no-underline gap-2 text-[#4f69ff]'>
                        <h4 className='text-xl cursor-pointer '>Profile</h4>

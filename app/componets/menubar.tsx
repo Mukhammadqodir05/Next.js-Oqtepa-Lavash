@@ -9,6 +9,7 @@ import { useSelectedItemStore } from '../store/selectedItemStore';
 import AddToCard from './addToCard';
 import { FadeLoader, PuffLoader } from 'react-spinners';
 import OwnerUserdata from './owneruserdata';
+import Link from 'next/link';
 
 type ItemType = {
   id: number;
@@ -109,7 +110,9 @@ const MenuBar = () => {
   };
 
   return (
-    <main className='flex w-full h-full flex-col items-center justify-center'>
+    <>
+    { ownerUser ?
+     (<main className='flex w-full h-full flex-col items-center justify-center'>
      {/* Bottombar */}
         <div className='flex md:hidden w-full fixed border-t borderColor bg-black bottom-0 left-0 right-0 overflow-x-hidden items-center'>
           { isLeftVisible &&
@@ -140,10 +143,10 @@ const MenuBar = () => {
           <div className="md:flex hidden h-[700px] w-full max-w-[200px] lg:max-w-[250px]">
             <div className="w-full flex flex-col p-4 border-l border-r borderColor">
               <span className="text-4xl font-bold mb-4">Menu</span>
-              <ul className="w-full flex flex-col gap-4 mt-1">
+              <ul className="w-full flex justify-center flex-col gap-3 mt-1">
                 {Categories.map((category) => (
-                  <li className="w-full" key={category} onClick={() => handleSelectCategory(category)}>
-                    <span className={clickedBar === category ? 'selected' : 'list'}>{category}</span>
+                  <li  className={clickedBar === category ? 'selected' : 'list'} key={category} onClick={() => handleSelectCategory(category)}>
+                    <span>{category}</span>
                   </li>
                 ))}
               </ul>
@@ -197,8 +200,9 @@ const MenuBar = () => {
                 )}
                 <h2 className="text-3xl font-bold text-purple-600 mb-2">{selectedItem?.title}</h2>
                 <p className="text-gray-800 mb-4">{selectedItem?.description}</p>
+                <span className="text-xl font-bold text-purple-600">{selectedItem?.sum}.000 sum</span>
                 <div className="flex justify-between items-center">
-                  <span className="text-xl font-bold text-purple-600">{selectedItem?.sum}.000 sum</span>
+                  <Link className='text-xl bg-slate-300 no-underline p-2 px-3 rounded-2xl' href='/cart'>View cart</Link>
                   <button onClick={handleAddToCart} title='Add to cart' className="bg-purple-600 text-white rounded-full p-2 flex items-center space-x-2 hover:bg-purple-700 px-4 relative">
                     <MdAddShoppingCart size={30} />
                     { ownerUser &&
@@ -220,7 +224,11 @@ const MenuBar = () => {
               ''
             )
           }
-    </main>
+     </main>)
+    :
+     (<div className='flex justify-center items-center h-screen bg-black'><PuffLoader size={150} color='#F9008E' loading={true} /></div>)
+     }
+    </> 
   )
 };
 

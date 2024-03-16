@@ -29,7 +29,6 @@ const AddToCard = () => {
     
              await updateDoc(userRef, newData);
              setLoading(false);
-             setIsItemVisible(false)
              console.log('Document updated successfully');
              } else {
              console.error('Error: User data not available');
