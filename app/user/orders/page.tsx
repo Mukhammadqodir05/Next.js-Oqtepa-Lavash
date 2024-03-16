@@ -3,7 +3,6 @@ import React from 'react';
 import OwnerUserdata from '@/app/componets/owneruserdata';
 import { PulseLoader } from 'react-spinners';
 import Navbar from '../../componets/navbar';
-import Footer from '../../componets/footer';
 
 const Page = () => {
   const { ownerUser } = OwnerUserdata();

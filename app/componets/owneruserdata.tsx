@@ -8,7 +8,7 @@ interface User {
   firstName: string;
   lastName: string;
   userName: string;
-  orders: string[];
+  orders: { id: string, time: string, cardNumber: string, expiryDate: string, deliverAddress: string, totalSum: number, deliveryFee: string }[];
   card: { cardNumber: string; expiryDate: string }[]; 
   cart: string[];
   timestamp: string;
