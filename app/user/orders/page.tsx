@@ -12,11 +12,11 @@ const Page = () => {
       {ownerUser ? (
         <main className="flex flex-col items-center justify-center h-screen bg-black  text-white p-1 overflow-hidden">
           <Navbar />
-          <div className="flex flex-col justify-center items-center max-w-[800px] w-full h-[750px] mt-14">
-           
-            <h1 className="text-3xl font-bold mb-6 gradient-text">Your Orders</h1>
-           <div className='flex flex-col max-w-[450px] h-[560px] overflow-y-auto'>
-            {ownerUser?.orders?.map((order, index) => (
+           <div className="flex flex-col justify-center items-center max-w-[800px] w-full h-[750px] mt-14">
+           {ownerUser.orders.length > 0 && <h1 className="text-3xl font-bold mb-6 gradient-text">Your Orders</h1>}
+            <div className='flex flex-col max-w-[450px] h-[560px] overflow-y-auto'>
+            {ownerUser.orders.length > 0 ?
+            (ownerUser?.orders?.map((order, index) => (
               <div key={index} className="mb-6 border-1 border-gray-600 p-4 rounded-lg">
                 <div className="flex justify-between items-center mb-3">
                   <div>
@@ -34,7 +34,13 @@ const Page = () => {
                   <p className="text-white">Delivery Fee: {order.deliveryFee}</p>
                 </div>
               </div>
-            ))}
+            )))
+            : (
+              <div className='flex justify-center items-center w-full h-[600px]'>
+                <h1 className='text-3xl font-bold gradient-text'>You have no orders yet!</h1>
+              </div>
+            )
+            }
            </div>
           </div>
         </main>
