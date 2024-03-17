@@ -24,7 +24,7 @@ const SignIn = () => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log(userCredential);
-      Cookies.set('loggedin', 'true');
+      Cookies.set('loggedin', 'true', { expires: 30 });
     } catch (error) {
       console.error(error);
       setError('Something went wrong. Please try again.');
@@ -36,7 +36,7 @@ const SignIn = () => {
 
   return (
     <main className="bg-black flex w-full items-center justify-center h-screen text-white p-3 overflow-hidden">
-        <div className=" border w-full h-full max-w-80 max-h-[500px] flex flex-col items-center rounded-3xl p-4">
+        <div className=" border w-full h-full max-w-[350px] max-h-[550px] flex flex-col items-center rounded-3xl p-4">
           <div className="space-y-6 mt-8 text-center">
             <h1 className="text-4xl font-bold">Welcome Back!</h1>
             <p className="text-lg">Log in to your account</p>
@@ -76,7 +76,7 @@ const SignIn = () => {
             </button>
           </form>
           
-          <div className="mt-6 text-center">
+          <div className="mt-10 text-center">
             <p className="text-base">Don't have an account?</p>
             <Link href="/auth/signup" className="underline text-base hover:underline text-blue-600">
               Create an account

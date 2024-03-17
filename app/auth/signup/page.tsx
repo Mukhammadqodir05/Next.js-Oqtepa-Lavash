@@ -44,7 +44,7 @@ const SignUp = () => {
         await setDoc(doc(db, 'users', newUser.user.uid), userDoc);
       }
     
-      Cookies.set('loggedin', 'true');
+      Cookies.set('loggedin', 'true', { expires: 30 });
       console.log('Well done!')
     } catch (error) {
       console.error(error);
@@ -58,8 +58,8 @@ const SignUp = () => {
 
 
   return (
-    <div className="flex bg-black w-full items-center justify-center h-screen p-3">
-      <div className="md:w-80 border bg-transparent w-full h-full max-w-80 max-h-[500px] flex items-center flex-col rounded-3xl p-4">
+    <div className="flex bg-black w-full items-center justify-center h-screen p-1">
+      <div className=" border bg-transparent w-full h-full max-w-[350px] max-h-[550px] flex items-center flex-col rounded-3xl p-4">
         <div className="space-y-2 text-sky-400">
           <BsPersonCircle className="text-9xl cursor-pointer" />
           <h1 className="text-center">Register</h1>
@@ -67,7 +67,7 @@ const SignUp = () => {
         <div className='absolute mt-[540px]'>
           {error && <p className="text-xl">{error}</p>}
         </div>
-        <form onSubmit={handleSignUp} className="mt-[15px] text-white space-y-7 text-center">
+        <form onSubmit={handleSignUp} className="mt-[15px] w-full text-white space-y-7 text-center">
           <input
             className="input outline-none py-1 p-1 bg-transparent border-b w-full max-w-[240px]"
             required

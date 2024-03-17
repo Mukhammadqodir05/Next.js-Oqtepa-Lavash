@@ -55,14 +55,14 @@ const Page = () => {
          };
    
          await updateDoc(userRef, newData);
-         window.location.href = "/user";
          console.log('Document updated successfully');
+         setLoading(false)
        } else {
          console.error('Error: User data not available');
        }
      } catch (error) {
        console.error('Error updating document:', error);
-     }
+     } 
     };
    
     return (

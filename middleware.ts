@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 const protectedRoutes = ["/auth/signup", "/auth/signin"];
-const protectedRoutes2 = ["/user", "/user/update-profile"];
+const protectedRoutes2 = ["/user", "/user/update-profile", "checkout", "user/orders"];
 
 export default function middleware(req: NextRequest) {
   let isAuthenticated = req.cookies.get('loggedin');

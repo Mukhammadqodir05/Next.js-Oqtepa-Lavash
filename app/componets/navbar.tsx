@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState }  from 'react';
+import React, { useState }  from 'react';
 import Link from 'next/link';
 import { FaListUl } from "react-icons/fa6";
 import { VscAccount } from "react-icons/vsc";
@@ -28,7 +28,9 @@ const Navbar = () => {
               <Link href="/branches" className="text-white no-underline text-xl font-semibold">Branches</Link>
               <Link href="/contact" className="text-white no-underline text-xl font-semibold">Contact</Link>
               <Link href="/cart" className="text-white no-underline text-xl font-semibold">Cart</Link>
-              <Link href="/user/orders" className="text-white no-underline text-xl font-semibold">Orders</Link>
+              { user &&
+                <Link href="/user/orders" className="text-white no-underline text-xl font-semibold">Orders</Link>
+              }
               { user && loggedInCookie ?
                 <Link href="/user"  className=' text-[#4f69ff]'><VscAccount size={30} /></Link>
                 : (
@@ -56,7 +58,11 @@ const Navbar = () => {
                   <Link href="/branches" className="text-white cursor-pointer no-underline text-xl font-semibold">Branches</Link>
                   <Link href="/contact" className="text-white cursor-pointer no-underline text-xl font-semibold">Contact</Link>
                   <Link href="/cart" className="text-white cursor-pointer no-underline text-xl font-semibold">Cart</Link>
-                  <Link href="/user/orders" className="text-white no-underline text-xl font-semibold">Orders</Link>
+                 { user &&
+                    <Link href="/user/orders" className="text-white no-underline text-xl font-semibold">Orders</Link>
+                 }
+                 
+                 
                   { user && loggedInCookie ?
                     <div className='flex gap-2'>
                       <Link href="/user"  className='flex no-underline gap-2 text-[#4f69ff]'>

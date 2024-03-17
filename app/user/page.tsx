@@ -65,14 +65,14 @@ const Page = () => {
             </div>
             <div className="p-4 gap-3 border-b">
               <p className="text-gray-600 text-nowrap text-2xl">You have {ownerUser?.orders?.length} orders!</p>
-               <Link className='no-underline text-2xl' href='/user/orders'>Check them out</Link>
+               <Link className='no-underline text-2xl text-blue-500' href='/user/orders'>Check them out</Link>
             </div>
 
               <div className="flex justify-between items-center p-4">
                 <Link href='/user/update-profile' className="w-full max-w-[150px] justify-center no-underline bg-[#8800ff] text-white rounded-full p-2 flex items-center hover:bg-purple-700 focus:outline-none">
                   Update Profile
                 </Link>
-                <button title='Log out' onClick={handleSignOut} className="text-white no-underline text-xl font-semibold flex justify-center items-center bg-red-600 w-full max-w-[100px] h-9 rounded-md">
+                <button title='Log out' onClick={handleSignOut} className="text-white no-underline text-xl font-semibold flex justify-center items-center bg-red-600 w-full max-w-[100px] h-10 rounded-md">
                   Sign out
                 </button>
               </div>

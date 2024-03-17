@@ -12,6 +12,21 @@ import { doc, updateDoc } from 'firebase/firestore';
 import Navbar from '../componets/navbar';
 import Footer from '../componets/footer';
 
+interface Card {
+  cardNumber: string;
+  expiryDate: string;
+}
+
+type ItemType = {
+       image: string;
+       sum: number;
+       title: string;
+       id: string;
+       promoItems: any[];
+       description: string;
+       count: number; 
+};
+     
 const Page = () => {
   const [cardNotSelected, setCardNotSelected] = useState(false);
   const [cardNumber, setCardNumber] = useState('');
@@ -24,6 +39,8 @@ const Page = () => {
   const [selectedDate, setSelectedDate] = useState('Today');
   const [selectedTime, setSelectedTime] = useState('12:00');
   const [showSuccess, setShowSuccess] = useState(false);
+  const [isAddressAvailable, setIsAddressAvailable] = useState(false);
+  const [selectedCard, setSelectedCard] = useState<Card | null>(null);
 
   const handleDateSelection = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedDate(e.target.value);
@@ -32,34 +49,12 @@ const Page = () => {
   const handleTimeSelection = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedTime(e.target.value);
   };
-
-  interface Card {
-    cardNumber: string;
-    expiryDate: string;
-  }
-  
-
- 
-  const [selectedCard, setSelectedCard] = useState<Card | null>(null);
   
   const handleCardClick = (card: Card) => {
     setSelectedCard(card);
     setShowCardOptions(false);
-    console.log(card);
   };
-  
-  
 
-  type ItemType = {
-         image: string;
-         sum: number;
-         title: string;
-         id: string;
-         promoItems: any[];
-         description: string;
-         count: number; 
-       };
-       
   let cartItems: ItemType[] = [];
   
   if (ownerUser?.cart) {
@@ -114,66 +109,75 @@ const Page = () => {
     e.preventDefault();
     setLoading(true);
     const id = Date.now();
-  
+
     try {
-      if (ownerUser && user && selectedCard) {
-        const userRef = doc(db, "users", user.uid);
-        const existingOrdesArray = ownerUser.orders || []; 
-        const newOrder = {
-          id: id,
-          time: selectedDate + ' ' + selectedTime,
-          cardNumber: selectedCard?.cardNumber,
-          expiryDate: selectedCard?.expiryDate,
-          deliverAddress: ownerUser.deliveryAddress,
-          totalSum: totalSum,
-          deliveryFee: '0 sum'
-        };
-        const updatedOrdersArray = [...existingOrdesArray, newOrder]; 
-        await updateDoc(userRef, { orders: updatedOrdersArray });
-        setShowSuccess(true)
-        console.log('Document updated successfully');
-        setShowCardForm(false)
-      } else {
-        console.error('Error: User data not available');
-      }
+        if (ownerUser && user && selectedCard) {
+            const userRef = doc(db, "users", user.uid);
+            const existingOrdersArray = ownerUser.orders || [];
+            
+            if (!ownerUser.deliveryAddress) {
+                setIsAddressAvailable(true); 
+                setLoading(false);
+                return; 
+            }
+
+            const newOrder = {
+                id: id,
+                time: selectedDate + ' ' + selectedTime,
+                cardNumber: selectedCard?.cardNumber,
+                expiryDate: selectedCard?.expiryDate,
+                deliverAddress: ownerUser.deliveryAddress,
+                totalSum: totalSum,
+                deliveryFee: '0 sum'
+            };
+            const updatedOrdersArray = [...existingOrdersArray, newOrder];
+            await updateDoc(userRef, { orders: updatedOrdersArray });
+            setShowSuccess(true);
+            console.log('Document updated successfully');
+            setShowCardForm(false);
+        } else {
+            console.error('Error: User data not available');
+        }
     } catch (error) {
-      console.error('Error updating document:', error);
-    } finally{
-      setTimeout(() => {
-        setShowSuccess(false)
-      }, 5000)
+        console.error('Error updating document:', error);
+    } finally {
+        setTimeout(() => {
+            setShowSuccess(false);
+        }, 5000);
     }
   };
 
   setTimeout(() =>{
     setCardNotSelected(false)
+    setIsAddressAvailable(false)
   }, 3000)
 
   return (
     <>
     {ownerUser ? 
-      <main className='flex gap-5 bg-black flex-col justify-center items-center w-full h-full p-2 pt-5 text-white overflow-hidden'>
+      <main className='flex gap-5 bg-black flex-col justify-center items-center w-full h-full pt-5 text-white overflow-hidden'>
        <Navbar/>
          <div className='pt-[60px]'>
             <h1 className='text-4xl font-bold gradient-text'>Oqtepa Lavash</h1>
           </div>
-          <div className='flex justify-center items-center flex-col lg:flex lg:flex-row gap-5 w-full h-full'>
-            <div className='flex flex-col gap-5'>
+          <div className='flex justify-center items-center flex-col lg:flex lg:flex-row gap-5 w-full h-full p-2'>
+            <div className='flex w-full max-w-[450px] flex-col gap-5'>
               <div className='flex flex-col w-full max-w-[550px] gap-2 border-1 border-gray-600 rounded-3xl h-[300px] p-3'>
             <div className='flex w-full justify-between gap-2'>
               <h1 className='text-white text-2xl text-nowrap'>Delivery Address</h1>
               <Link href='/user/update-profile' className='text-xl text-nowrap no-underline text-blue-600'>Edit the address</Link>
             </div>
-            <div className='w-full overflow-y-auto  border-gray-600  p-2'>
+            <div className='w-full overflow-y-auto border-gray-600  p-2'>
                 <h2 className='text-gray-400 text-[16px]'>{ownerUser?.deliveryAddress}</h2>
             </div>
               </div>
 
-            <div className='flex flex-col w-full max-w-[550px] h-[600px] justify-center items-center'>
+              <div className='flex flex-col w-full h-[600px] justify-center items-center'>
               <div className='flex w-full text-white justify-between items-center border-gray-600 border-t border-l rounded-t-lg border-r p-3'>
                 <h1 className="text-2xl font-extrabold">Your products</h1>
                </div>
-                <div className="flex w-full flex-col overflow-y-auto h-[550px] border-1 border-gray-600 rounded-b-lg">
+               <div className="flex w-full justify-center">
+                <div className="max-w-[450px] w-full overflow-y-auto h-[550px] border-1 border-gray-600 rounded-b-lg">
                   {cartItems.map((item, index) => (
                     <div key={index} className="flex w-full flex-col items-center justify-between border-b border-gray-600 py-3 p-3">
                       <div className='flex w-full items-center justify-between'>
@@ -191,7 +195,8 @@ const Page = () => {
                     </div>
                   ))}
                 </div>
-               </div>
+              </div>
+              </div>
             </div>
 
               <div className='flex w-full h-full flex-col gap-5 max-w-[450px]'>
@@ -216,7 +221,7 @@ const Page = () => {
                 </div>
 
                 <div className='flex flex-col justify-center items-center bg-black h-full w-full'>
-                  <div className='w-full max-w-[400px] space-y-2 h-[500px] border-1 border-gray-600 rounded-3xl p-3 bg-black flex flex-col'>
+                  <div className='w-full max-w-[450px] space-y-2 h-[500px] border-1 border-gray-600 rounded-3xl p-3 bg-black flex flex-col'>
                     <h1 className='text-white text-2xl font-bold text-center mb-3'>Payment method</h1>
                     
                     <div onClick={() => setShowCardOptions((prev) => !prev)} className='flex justify-between items-center w-full h-16 border-1 border-gray-600 rounded-2xl p-2'>
@@ -260,13 +265,13 @@ const Page = () => {
                         <h1 className='text-white text-[20px]'>Total {totalSum}.000 sum</h1>
                         <h2 className='text-white text-[20px]'>Delivery fee: 0 sum</h2>
                       </div>
-                    {selectedCard ? (<div onClick={handleOrder} className='flex justify-center items-center w-full font-bold text-[#000000] border bg-slate-500 rounded-xl'>
+                      {selectedCard ? (<div onClick={handleOrder} className='flex justify-center items-center w-full font-bold text-xl text-white border bg-[#9d00ff] rounded-xl'>
                         <button title='Order' className='p-2'>Place Order</button>
-                      </div>
-                    )
-                      :
+                       </div>
+                      )
+                       :
                       (
-                        <div onClick={() => setCardNotSelected((prev) =>! prev)} className='flex justify-center items-center w-full font-bold text-[#000000] border bg-slate-500 rounded-xl'>
+                        <div onClick={() => setCardNotSelected((prev) =>! prev)} className='flex justify-center items-center w-full font-bold text-xl text-white border bg-[#9d00ff] rounded-xl'>
                           <button title='Order' className='p-2'>Place Order</button>
                         </div>
                       )
@@ -275,71 +280,75 @@ const Page = () => {
                  </div>
             </div>
 
-          { cardNotSelected &&
-           <div className='fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50 z-50'>
-             <h1 className='w-full text-2xl flex items-center max-w-[400px] h-[300px] bg-white text-black p-3 rounded-3xl'>You have not selected a card yet!</h1> 
-           </div>
-          }
+            { cardNotSelected &&
+            <div className="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50 p-2">
+                <h1 className='text-2xl bg-[#ff9b05] p-4 rounded-2xl'>Please select a card to place an order!</h1>
+            </div>
+            }
 
-           {showSuccess && (
-                <div className='fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50 z-50'>
-                  <h1 className='w-full text-[#ff07ee] text-2xl flex items-center max-w-[400px] h-[300px] bg-white p-3 rounded-3xl animate-fade-in'>
-                    Congratulations, your order has been placed!
-                  </h1>
+             {isAddressAvailable &&
+                <div className="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50 p-2">
+                 <h1 className='text-2xl bg-[#ff9b05] p-4 rounded-2xl'>Please enter your address in order to place an order!</h1>
+                </div>
+              }
+
+              {showSuccess && (
+               <div className="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50 p-2">
+                  <h1 className='text-2xl bg-[#ff9b05] p-4 rounded-2xl'> Congratulations, your order has been placed!</h1>
                 </div>
               )}
-
-          {/* Show the add payment method form */}
-            { showCardForm &&
-              <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-90 z-50">
-               <form className="p-4 max-w-md w-full bg-white shadow rounded-lg" onSubmit={handleAddPaymentMethod}>
-                <div onClick={() => setShowCardForm((prev) =>! prev)} className="flex justify-end mt-[-10px]">
-                  <MdClose title='Close' size={30} className="text-black hover:bg-slate-300 rounded-full cursor-pointer"/>
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="card-number" className="block text-gray-700 text-sm font-bold mb-2">
-                    Card Number
-                  </label>
-                  <input
-                    id="card-number"
-                    type="text"
-                    value={cardNumber}
-                    onChange={(e) => setCardNumber(e.target.value)}
-                    className="shadow  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label htmlFor="expiry-date" className="block text-gray-700 text-sm font-bold mb-2">
-                    Expiry Date
-                  </label>
-                  <input
-                    id="expiry-date"
-                    type="text"
-                    value={expiryDate}
-                    onChange={(e) => setExpiryDate(e.target.value)}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <button
-                    type="submit"
-                    className="w-full flex items-center justify-center text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-blue-500 hover:bg-blue-700"
-                  >
-                    { loading ? <PulseLoader color='#fff' size={20} loading={true} /> : 'Add Payment Method'}
-                  </button>
-                </div>
-              </form>
-             </div> 
-            }
+             
+             {/* Show the add payment method form */}
+              { showCardForm &&
+                <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-90 z-50">
+                <form className="p-4 max-w-md w-full bg-white shadow rounded-lg" onSubmit={handleAddPaymentMethod}>
+                  <div onClick={() => setShowCardForm((prev) =>! prev)} className="flex justify-end mt-[-10px]">
+                    <MdClose title='Close' size={30} className="text-black hover:bg-slate-300 rounded-full cursor-pointer"/>
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="card-number" className="block text-gray-700 text-sm font-bold mb-2">
+                      Card Number
+                    </label>
+                    <input
+                      id="card-number"
+                      type="text"
+                      value={cardNumber}
+                      onChange={(e) => setCardNumber(e.target.value)}
+                      className="shadow  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="expiry-date" className="block text-gray-700 text-sm font-bold mb-2">
+                      Expiry Date
+                    </label>
+                    <input
+                      id="expiry-date"
+                      type="text"
+                      value={expiryDate}
+                      onChange={(e) => setExpiryDate(e.target.value)}
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <button
+                      type="submit"
+                      className="w-full flex items-center justify-center text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline bg-blue-500 hover:bg-blue-700"
+                    >
+                      { loading ? <PulseLoader color='#fff' size={20} loading={true} /> : 'Add Payment Method'}
+                    </button>
+                  </div>
+                </form>
+              </div> 
+              }
 
           </div>
            <Footer />
          </main>
-       : 
+        : 
         (<div className="flex h-screen justify-center items-center text-center w-full bg-black">
             <PulseLoader color='#8800ff' size={50} loading={true} /> 
           </div>)
-      }
+       }
     </>
    );
 };

@@ -8,20 +8,23 @@ import Link from 'next/link';
 import { GrAdd } from "react-icons/gr";
 import { IoMdRemove } from "react-icons/io";
 import { CiCircleRemove } from "react-icons/ci";
+import { useState } from 'react';
+
+type ItemType = {
+  image: string;
+  sum: number;
+  title: string;
+  id: string;
+  promoItems: any[];
+  description: string;
+  count: number; 
+};
 
 const Page = () => {
   const { ownerUser } = OwnerUserdata();
   const [user] = useAuthState(auth);
+  const [isOwnerUserAvailable, setIsOwnerUserAvailable] = useState(false)
 
-  type ItemType = {
-    image: string;
-    sum: number;
-    title: string;
-    id: string;
-    promoItems: any[];
-    description: string;
-    count: number; 
-  };
   
   let cartItems: ItemType[] = [];
   
@@ -53,10 +56,8 @@ const Page = () => {
     e.preventDefault();
 
     let addedItem = ownerUser?.cart?.find((cartItem) => typeof cartItem === 'object' && (cartItem as {title:string}).title === item?.title);
-    console.log(addedItem)
     try {
       if (ownerUser && user && addedItem) {
-        console.log(addedItem)
         const userRef = doc(db, "users", user.uid);
              const updatedCart = [...ownerUser.cart, addedItem];
              
@@ -102,6 +103,10 @@ const Page = () => {
         console.error('Error updating document:', error);
     }
   };
+  
+  setTimeout(() => {
+    setIsOwnerUserAvailable(false)
+  }, 4000)
 
   return (
    <div className="flex flex-col justify-center items-center w-full h-screen mx-auto bg-gradient-to-br cartBg font-sans p-1">
@@ -141,9 +146,20 @@ const Page = () => {
             </div>
           )}
            <div className='flex text-white justify-between items-center border-gray-600 border-t p-3'>
-            <h1 className="text-xl font-bold text-[#ff9900]">{totalSum}.000 sum</h1>
-            <Link title='Checkout' href='/checkout' className=" no-underline text-xl font-bold text-[#ffffff]">Checkout</Link>
+             <h1 className="text-xl font-bold text-[#ff9900]">{totalSum}.000 sum</h1>
+           { ownerUser ?
+            ( <Link title='Checkout' href='/checkout' className=" no-underline text-xl font-bold text-[#ffffff]">Checkout</Link>)
+            :
+            ( <div onClick={() => setIsOwnerUserAvailable((prev) =>! prev)} className=" no-underline text-xl font-bold text-[#ffffff] cursor-pointer">Checkout</div> )
+           }  
           </div>
+
+          { isOwnerUserAvailable&&
+            <div className="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50 p-2">
+              <h1 className='text-2xl bg-[#ff9b05] p-4 rounded-2xl'>Please register in order to go to Checkout!</h1>
+            </div>
+          }
+
         </div>
       </div>
    </div>
