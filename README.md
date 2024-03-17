@@ -30,7 +30,3 @@ To get started with Oqtepa Lavash:
 ## Contributing
 We welcome contributions from the community to enhance the functionality and user experience of Oqtepa Lavash. Feel free to fork the repository, make improvements, and submit a pull request.
 
-## Feedback
-If you have any feedback, suggestions, or issues to report, please feel free to reach out to us at [contact@oqtepalavash.com](mailto:contact@oqtepalavash.com). We value your input and strive to make Oqtepa Lavash the best fast food ordering experience for our customers.
-
-Thank you for choosing Oqtepa Lavash for your fast food cravings! Enjoy your meal! 🍔🍟🥤
